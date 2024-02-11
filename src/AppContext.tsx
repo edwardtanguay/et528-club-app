@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { IMember } from "./interfaces";
+import { IMember, MemberSchema } from "./interfaces";
 import axios from "axios";
 
 interface IAppContext {
@@ -22,7 +22,15 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	useEffect(() => {
 		(async () => {
 			const response = await axios.get(`${backendUrl}/members`);
-			const _members = response.data;
+			const _members = [];
+			for (const _member of response.data) {
+				const parseResult = MemberSchema.safeParse(_member);
+				if (parseResult.success) {
+					_members.push(_member);
+				} else {
+					console.log(`LOG ENTRY: bad member object (${JSON.stringify(_member)})`);
+				}
+			}
 			setMembers(_members);
 		})();
 	}, []);
