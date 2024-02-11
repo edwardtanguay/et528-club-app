@@ -25,13 +25,13 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 			const _members = response.data;
 			setMembers(_members);
 		})();
-	});
+	}, []);
 
 	return (
 		<AppContext.Provider
 			value={{
 				message,
-				members
+				members,
 			}}
 		>
 			{children}
