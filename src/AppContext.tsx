@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useEffect, useState } from "react";
-import { IMember, MemberSchema } from "./interfaces";
+import { Member, MemberSchema } from "./interfaces";
 import axios from "axios";
 
 interface IAppContext {
 	message: string;
-	members: IMember[];
+	members: Member[];
 	errorMessage: string;
 }
 
@@ -19,7 +19,7 @@ export const AppContext = createContext<IAppContext>({} as IAppContext);
 
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const message = "Welcome to this site.";
-	const [members, setMembers] = useState<IMember[]>([]);
+	const [members, setMembers] = useState<Member[]>([]);
 	const [errorMessage, setErrorMessage] = useState('');
 
 	useEffect(() => {
